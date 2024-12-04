@@ -1,21 +1,29 @@
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Investor {
+    static final int LIQUIDITY_START = 10000;
+    static final int WEEKLY_BILL_PAYMENT = 500;
+
     double liquidity;
     double investmentAmount;
     Map<Stock, Integer> portfolio;
 
     public Investor(){
-        liquidity = 100;
+        liquidity = LIQUIDITY_START;
         portfolio = new HashMap<Stock,Integer>();
     }
 
-    public boolean buyShares(StockMarket market, String tickerSymbol, int numShares){
+    public boolean buyShares(StockMarket market, Scanner scanner){
+        System.out.println("What stock would you like to buy?");
+        String tickerSymbol = scanner.nextLine();
+        System.out.println("How many shares of " + tickerSymbol + " you like to buy?");
+        int numShares = Integer.parseInt(scanner.nextLine());
         Stock stock = null;
 
         for(Stock currStock : market.stocks){
-            if(currStock.tickerSymbol == tickerSymbol)
+            if(currStock.tickerSymbol.equals(tickerSymbol))
                 stock = currStock;
         }
 
@@ -56,11 +64,15 @@ public class Investor {
         return true;
     }
 
-    public boolean sellShares(String tickerSymbol, int numShares){
+    public boolean sellShares(Scanner scanner){
+        System.out.println("What stock would you like to sell?");
+        String tickerSymbol = scanner.nextLine();
+        System.out.println("How many shares of " + tickerSymbol + " you like to sell?");
+        int numShares = Integer.parseInt(scanner.nextLine());
         Stock stock = null;
 
         for(Stock currStock : portfolio.keySet()){
-            if(currStock.tickerSymbol == tickerSymbol)
+            if(currStock.tickerSymbol.equals(tickerSymbol))
                 stock = currStock;
         }
 
@@ -104,6 +116,26 @@ public class Investor {
             System.out.println(stock.name + " (" + stock.tickerSymbol + ") - " + portfolio.get(stock));
         }
         System.out.println("----------------------------------");
+    }
+
+    public boolean payBills(){
+        if(liquidity >= WEEKLY_BILL_PAYMENT){
+            liquidity -= WEEKLY_BILL_PAYMENT;
+            System.out.println("----------------------------------");
+            System.out.println("             SUCCESS.             ");
+            System.out.println("----------------------------------");
+            System.out.println("$" + WEEKLY_BILL_PAYMENT + " has been deducted from your Liquidity to pay for your weekly bills.");
+            System.out.println("----------------------------------");
+            return true;
+        }
+        else{
+            System.out.println("----------------------------------");
+            System.out.println("             FAILURE.             ");
+            System.out.println("----------------------------------");
+            System.out.println("You were unable to pay $" + WEEKLY_BILL_PAYMENT + " for your weekly bills.");
+            System.out.println("----------------------------------");
+            return false;
+        }
     }
 
     public void update(){

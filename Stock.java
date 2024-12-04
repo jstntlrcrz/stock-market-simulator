@@ -1,4 +1,6 @@
 public class Stock {
+    static final int NUM_OF_FLIPS = 50;
+
     String name;
     String tickerSymbol;
     double price;
@@ -10,7 +12,7 @@ public class Stock {
     }
 
     public int simulatePriceAction(LFSR rng){
-        int numOfFlips = 30;
+        int numOfFlips = NUM_OF_FLIPS;
         int[] sequence = new int[numOfFlips];
         int level = 0;
         int maxLevel = 0;

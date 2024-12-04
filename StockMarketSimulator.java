@@ -37,10 +37,10 @@ public class StockMarketSimulator {
 
             switch(userInput){
                 case "B":
-                    investor.buyShares(market, "JSTN", 10);
+                    investor.buyShares(market, scanner);
                     break;
                 case "S":
-                    investor.sellShares("JSTN", 10);
+                    investor.sellShares(scanner);
                     break;
                 case "M":
                     market.viewStockMarket();
@@ -54,14 +54,19 @@ public class StockMarketSimulator {
                     ++day;
                     break;
                 case "E":
-                    System.out.println("Ending Program...");
                     end = true;
                     break;
                 default:
                     System.out.println("Invalid Input. Please Try Again.");
             }
 
+            if(day % 7 == 0)
+                if(!investor.payBills())
+                    end = true;
+
             if(end){
+                System.out.println("You made it to Day " + day + ".");
+                System.out.println("Ending Program...");
                 scanner.close();
                 break;
             }
