@@ -23,8 +23,7 @@ public class StockMarket{
 
         for(Stock stock : stocks){
             System.out.print(stock.name + " (" + stock.tickerSymbol + ") - $");
-            System.out.printf("%.2f", stock.price);
-            System.out.println();
+            System.out.printf("%.2f\n", stock.price);
         }
 
         System.out.println("----------------------------------");

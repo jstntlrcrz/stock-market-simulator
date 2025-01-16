@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StockMarketSimulator {
@@ -9,62 +8,74 @@ public class StockMarketSimulator {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        Boolean end = false;
+        Boolean endProgram = false;
+        Boolean simulateDay = false;
 
-        System.out.println("--------------------");
-        System.out.println("StockMarketSimulator");
-        System.out.println("--------------------");
+        System.out.println("----------------------------------");
+        System.out.println("       StockMarketSimulator       ");
+        System.out.println("----------------------------------");
 
         while(true){
             System.out.println("Good Morning, Investor!");
-            System.out.println("Here is what your account looks like on Day " + day);
+            System.out.println("Here is what your account looks like on (Day " + day + ")");
             System.out.print("Total Liquidity: $");
-            System.out.printf("%.2f", investor.liquidity);
-            System.out.println();
+            System.out.printf("%.2f\n", investor.liquidity);
             System.out.print("Total Investments: $");
-            System.out.printf("%.2f", investor.investmentAmount);
-            System.out.println();
+            System.out.printf("%.2f\n", investor.investmentAmount);
 
-            System.out.println("Please select from the following options:");
-            System.out.println(" - (B)uy Shares");
-            System.out.println(" - (S)ell Shares");
-            System.out.println(" - (M)arket View");
-            System.out.println(" - (P)ortfolio View");
-            System.out.println(" - (C)ontinue to Opening Bell");
-            System.out.println(" - (E)nd Program");
+            while(true){
+                System.out.println("Please select from the following options:");
+                System.out.println(" - (B)uy Shares");
+                System.out.println(" - (S)ell Shares");
+                System.out.println(" - (M)arket View");
+                System.out.println(" - (P)ortfolio View");
+                System.out.println(" - (C)ontinue to Opening Bell");
+                System.out.println(" - (E)nd Program");
 
-            userInput = scanner.nextLine();
+                userInput = scanner.nextLine();
 
-            switch(userInput){
-                case "B":
-                    investor.buyShares(market, scanner);
+                switch(userInput){
+                    case "B":
+                        market.viewStockMarket();
+                        investor.buyShares(market, scanner);
+                        break;
+                    case "S":
+                        investor.viewPortfolio();
+                        investor.sellShares(scanner);
+                        break;
+                    case "M":
+                        market.viewStockMarket();
+                        break;
+                    case "P":
+                        investor.viewPortfolio();
+                        break;
+                    case "C":
+                        market.simulateMarket(rng);
+                        investor.update();
+                        ++day;
+                        simulateDay = true;
+                        break;
+                    case "E":
+                        endProgram = true;
+                        break;
+                    default:
+                        System.out.println("Invalid Input. Please Try Again.");
+                }
+
+                if(simulateDay){
+                    simulateDay = false;
                     break;
-                case "S":
-                    investor.sellShares(scanner);
+                }
+
+                if(endProgram)
                     break;
-                case "M":
-                    market.viewStockMarket();
-                    break;
-                case "P":
-                    investor.viewPortfolio();
-                    break;
-                case "C":
-                    market.simulateMarket(rng);
-                    investor.update();
-                    ++day;
-                    break;
-                case "E":
-                    end = true;
-                    break;
-                default:
-                    System.out.println("Invalid Input. Please Try Again.");
             }
 
             if(day % 7 == 0)
                 if(!investor.payBills())
-                    end = true;
+                    endProgram = true;
 
-            if(end){
+            if(endProgram){
                 System.out.println("You made it to Day " + day + ".");
                 System.out.println("Ending Program...");
                 scanner.close();
