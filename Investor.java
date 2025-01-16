@@ -9,6 +9,7 @@ public class Investor {
 
     double liquidity;
     double investmentAmount;
+    double prevInvestmentAmount;
     Map<Stock,ShareInfo> portfolio;
 
     public Investor(){
@@ -176,6 +177,7 @@ public class Investor {
         for(Stock stock : portfolio.keySet()){
             currInvestmentAmount += stock.price * portfolio.get(stock).numShares;
         }
+        prevInvestmentAmount = investmentAmount;
         investmentAmount = currInvestmentAmount;
     }
 

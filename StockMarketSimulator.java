@@ -17,6 +17,24 @@ public class StockMarketSimulator {
 
         while(true){
             System.out.println("Good Morning, Investor!");
+            if(day != 1 && investor.investmentAmount != 0){
+                double dollarChange = Math.abs(investor.investmentAmount - investor.prevInvestmentAmount);
+                double percentChange = Math.abs(1 - (investor.investmentAmount / investor.prevInvestmentAmount));
+                if(investor.investmentAmount > investor.prevInvestmentAmount){
+                    System.out.print("Yesterday was a GREEN day for you! Your investments rose ");
+                    System.out.printf("%.2f", dollarChange);
+                    System.out.print("($) ~ ");
+                    System.out.printf("%.2f", percentChange);
+                    System.out.print("(%)\n");
+                } else if(investor.investmentAmount < investor.prevInvestmentAmount){
+                    System.out.print("Yesterday was a RED day for you... Your investments fell -");
+                    System.out.printf("%.2f", dollarChange);
+                    System.out.print("($) ~ -");
+                    System.out.printf("%.2f", percentChange);
+                    System.out.print("(%)\n");
+                } else
+                    System.out.println("Yesterday was a EVEN day for you. Your investments didn't change.");
+            }
             System.out.println("Here is what your account looks like on (Day " + day + ")");
             System.out.print("Total Liquidity: $");
             System.out.printf("%.2f\n", investor.liquidity);
