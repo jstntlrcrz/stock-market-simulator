@@ -1,5 +1,5 @@
 public class Stock {
-    static final int NUM_OF_FLIPS = 50;
+    static final int NUM_OF_FLIPS = 200;
 
     String name;
     String tickerSymbol;

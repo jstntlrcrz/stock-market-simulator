@@ -19,7 +19,7 @@ public class StockMarketSimulator {
             System.out.println("Good Morning, Investor!");
             if(day != 1 && investor.investmentAmount != 0){
                 double dollarChange = Math.abs(investor.investmentAmount - investor.prevInvestmentAmount);
-                double percentChange = Math.abs(1 - (investor.investmentAmount / investor.prevInvestmentAmount));
+                double percentChange = Math.abs((1 - (investor.investmentAmount / investor.prevInvestmentAmount)) * 100);
                 if(investor.investmentAmount > investor.prevInvestmentAmount){
                     System.out.print("Yesterday was a GREEN day for you! Your investments rose ");
                     System.out.printf("%.2f", dollarChange);

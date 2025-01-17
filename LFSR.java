@@ -26,12 +26,7 @@ public class LFSR {
         int discardedBit;
         int tempBit = 0;
         int newBit;
-
-        // System.out.print("Old Registers:");
-        // for(int i = 0; i < registers.length; ++i){
-        //     System.out.print(registers[i]);
-        // }
-
+        
         for(int i = tapPos.length - 2; i >= 0; --i){
             if(i == tapPos.length - 2)
                 tempBit = registers[tapPos[i+1]] ^ registers[tapPos[i]];
@@ -48,11 +43,6 @@ public class LFSR {
 
         registers[0] = newBit;
 
-        // System.out.print("New Registers:");
-        // for(int i = 0; i < registers.length; ++i){
-        //     System.out.print(registers[i]);
-        // }
-    
         return discardedBit;
     }
 
