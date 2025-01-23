@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class StockMarket{
     ArrayList<Stock> stocks = new ArrayList<Stock>();
@@ -27,6 +28,27 @@ public class StockMarket{
         }
 
         System.out.println("----------------------------------");
+    }
+
+    public void viewLineChart(Scanner scanner){
+        System.out.println("What stock chart would you like to view? (Please input stock ticker symbol)");
+        String tickerSymbol = scanner.nextLine();
+
+        Stock stock = null;
+        for(Stock currStock : stocks){
+            if(currStock.tickerSymbol.equals(tickerSymbol))
+                stock = currStock;
+        }
+
+        if(stock == null){
+            System.out.println("----------------------------------");
+            System.out.println("             FAILURE.             ");
+            System.out.println("----------------------------------");
+            System.out.println(tickerSymbol + " is not a valid stock.");
+            System.out.println("----------------------------------");
+        } else {
+            stock.displayPriceActionChart();
+        }
     }
 
     public void simulateMarket(LFSR rng){

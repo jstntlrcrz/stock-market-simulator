@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class StockMarketSimulator {
     static StockMarket market = new StockMarket();
-    static LFSR rng = new LFSR(128, new int[]{120,125,126,127}, "29C64A2C16173033338438288147465");
+    static LFSR rng = new LFSR(128, new int[]{120,125,126,127}, System.currentTimeMillis());
     static Investor investor = new Investor();
     static int day = 1;
     public static void main(String[] args){
@@ -12,8 +12,11 @@ public class StockMarketSimulator {
         Boolean simulateDay = false;
 
         System.out.println("----------------------------------");
-        System.out.println("       StockMarketSimulator       ");
+        System.out.println(" Welcome to StockMarketSimulator! ");
         System.out.println("----------------------------------");
+
+        System.out.println("Your objective is to make enough money in the Stock Market to be able to continually pay your bills ($" + Investor.WEEKLY_BILL_PAYMENT + ") by the end of each week. Good luck!\n");
+
 
         while(true){
             System.out.println("Good Morning, Investor!");
@@ -46,6 +49,7 @@ public class StockMarketSimulator {
                 System.out.println(" - (B)uy Shares");
                 System.out.println(" - (S)ell Shares");
                 System.out.println(" - (M)arket View");
+                System.out.println(" - (L)ine Chart View");
                 System.out.println(" - (P)ortfolio View");
                 System.out.println(" - (C)ontinue to Opening Bell");
                 System.out.println(" - (E)nd Program");
@@ -63,6 +67,19 @@ public class StockMarketSimulator {
                         break;
                     case "M":
                         market.viewStockMarket();
+                        break;
+                    case "L":
+                        if(day != 1){
+                            market.viewStockMarket();
+                            market.viewLineChart(scanner);
+                        }
+                        else{
+                            System.out.println("----------------------------------");
+                            System.out.println("             FAILURE.             ");
+                            System.out.println("----------------------------------");
+                            System.out.println("  There are no charts to display  ");
+                            System.out.println("----------------------------------");
+                        }
                         break;
                     case "P":
                         investor.viewPortfolio();
@@ -94,7 +111,8 @@ public class StockMarketSimulator {
                     endProgram = true;
 
             if(endProgram){
-                System.out.println("You made it to Day " + day + ".");
+                System.out.println("\nYou made it to Day " + day + ".");
+                System.out.println("\"The biggest risk you can take is not taking any risk\" - Mark Zuckerberg");
                 System.out.println("Ending Program...");
                 scanner.close();
                 break;

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Investor {
     static final int LIQUIDITY_START = 10000;
-    static final int WEEKLY_BILL_PAYMENT = 500;
+    static final int WEEKLY_BILL_PAYMENT = 2000;
 
     double liquidity;
     double investmentAmount;
@@ -18,7 +18,7 @@ public class Investor {
     }
 
     public boolean buyShares(StockMarket market, Scanner scanner){
-        System.out.printf("What stock would you like to buy? (Total Liquidity: $%.2f)\n", liquidity);
+        System.out.printf("What stock would you like to buy? (Please input stock ticker symbol) (Total Liquidity: $%.2f)\n", liquidity);
         String tickerSymbol = scanner.nextLine();
 
         Stock stock = null;
@@ -36,7 +36,7 @@ public class Investor {
             return false;
         }
 
-        System.out.println("How many shares of " + tickerSymbol + " you like to buy?");
+        System.out.println("How many shares of " + tickerSymbol + " would you like to buy?");
         int numShares = Integer.parseInt(scanner.nextLine());
         
         double transactionAmount = stock.price * numShares;
@@ -72,7 +72,7 @@ public class Investor {
     }
 
     public boolean sellShares(Scanner scanner){
-        System.out.println("What stock would you like to sell?");
+        System.out.println("What stock would you like to sell? (Please input stock ticker symbol)");
         String tickerSymbol = scanner.nextLine();
 
         Stock stock = null;

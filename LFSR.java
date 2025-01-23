@@ -1,5 +1,4 @@
 import java.math.BigInteger;
-import java.time.Year;
 
 public class LFSR {
     private int[] registers;
@@ -14,11 +13,15 @@ public class LFSR {
         setLocalVars();
     }
 
-    public LFSR(int numBits, int[] tapPos, String seed){
+    public LFSR(int numBits, int[] tapPos, long timestamp){
         this.registers = new int[numBits];
         this.tapPos = tapPos;
-        this.seed = new BigInteger(seed, 16);
 
+        BigInteger tempTime = BigInteger.valueOf(timestamp);
+        BigInteger time = tempTime.multiply(tempTime);
+        time = time.multiply(tempTime);
+        this.seed = time;
+        
         setLocalVars();
     }
 
@@ -26,7 +29,7 @@ public class LFSR {
         int discardedBit;
         int tempBit = 0;
         int newBit;
-        
+
         for(int i = tapPos.length - 2; i >= 0; --i){
             if(i == tapPos.length - 2)
                 tempBit = registers[tapPos[i+1]] ^ registers[tapPos[i]];
